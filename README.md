@@ -36,12 +36,6 @@ F5 and select dev.json environment
 ```bash
 # Run all tests
 flutter test
-
-# Run specific test file
-flutter test test/presentation/auth/domain/repositories/auth_repository_test.dart
-
-# Run tests with coverage
-flutter test --coverage
 ```
 
 ## Project Structure
