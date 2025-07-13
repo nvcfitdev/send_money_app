@@ -190,7 +190,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Naku naku naku mamser',
+                  'Mamser, pasensya na!',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 8),
@@ -204,7 +204,7 @@ class _SendMoneyPageState extends State<SendMoneyPage> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Try Again'),
+                  child: const Text('Retry'),
                 ),
               ],
             ),

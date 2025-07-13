@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
@@ -48,17 +49,14 @@ class WalletRepositoryImpl implements WalletRepository {
       final balanceJson = await _storage.getValue<String>(
         SharedPrefsKeys.balance,
       );
-      if (balanceJson != null) {
-        final Map<String, dynamic> data = json.decode(balanceJson);
-        return Balance(
-          amount: data['amount'] as double,
-          currency: data['currency'] as String,
-        );
+      if (balanceJson == null) {
+        return Balance(amount: 50000, currency: 'PHP');
       }
-      // Initial balance if not set
-      final balance = Balance(amount: 50000, currency: 'PHP');
-      await _saveBalance(balance);
-      return balance;
+      final Map<String, dynamic> data = json.decode(balanceJson);
+      return Balance(
+        amount: data['amount'] as double,
+        currency: data['currency'] as String,
+      );
     } catch (e) {
       throw Exception('Failed to fetch balance: $e');
     }
@@ -111,21 +109,6 @@ class WalletRepositoryImpl implements WalletRepository {
       final currentTransactions = await _getCachedTransactions();
       final updatedTransactions = [localTransaction, ...currentTransactions];
       await _cacheTransactions(updatedTransactions);
-
-      // Try to save to API (but don't block on it)
-      try {
-        final apiTransaction = TransactionApiContract(
-          id: transaction.id,
-          amount: transaction.amount,
-          date: transaction.date,
-          status: transaction.status,
-          description: transaction.description,
-          source: TransactionSource.local,
-        );
-        await _walletApi.saveTransaction(apiTransaction.toJson());
-      } catch (e) {
-        print('Failed to save transaction to API: $e');
-      }
 
       return localTransaction;
     } catch (e) {
