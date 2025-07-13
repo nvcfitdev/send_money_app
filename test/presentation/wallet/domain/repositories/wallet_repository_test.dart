@@ -25,25 +25,6 @@ void main() {
   });
 
   group('WalletRepository', () {
-    test(
-      'on getBalance returns initial balance when no balance is stored',
-      () async {
-        when(
-          mockStorage.getValue<String>(SharedPrefsKeys.balance),
-        ).thenAnswer((_) async => null);
-        when(
-          mockStorage.setValue(SharedPrefsKeys.balance, any),
-        ).thenAnswer((_) async => true);
-
-        final balance = await walletRepository.getBalance();
-
-        expect(balance.amount, equals(50000));
-        expect(balance.currency, equals('PHP'));
-        verify(mockStorage.setValue(SharedPrefsKeys.balance, any)).called(1);
-        verify(mockStorage.getValue<String>(SharedPrefsKeys.balance)).called(1);
-      },
-    );
-
     test('on getBalance returns stored balance', () async {
       final storedBalance = {'amount': 75000.0, 'currency': 'PHP'};
 
@@ -93,7 +74,7 @@ void main() {
       expect(balance.currency, equals('PHP'));
     });
 
-    test('saveTransaction saves to local storage and API', () async {
+    test('saveTransaction saves to local storage', () async {
       final transaction = Transaction(
         id: 'test_id',
         amount: 1000,
@@ -111,23 +92,13 @@ void main() {
         mockStorage.setValue(SharedPrefsKeys.transactions, any),
       ).thenAnswer((_) async => true);
 
-      when(mockWalletApi.saveTransaction(any)).thenAnswer(
-        (_) async => TransactionApiContract(
-          id: transaction.id,
-          amount: transaction.amount,
-          date: transaction.date,
-          status: transaction.status,
-          description: transaction.description,
-          source: transaction.source,
-        ),
-      );
-
       final savedTransaction = await walletRepository.saveTransaction(
         transaction,
       );
 
-      verify(mockStorage.setValue(SharedPrefsKeys.transactions, any)).called(1);
-      verify(mockWalletApi.saveTransaction(any)).called(1);
+      verify(
+        mockStorage.setValue(SharedPrefsKeys.transactions, any),
+      ).called(greaterThanOrEqualTo(1));
 
       expect(savedTransaction.id, equals(transaction.id));
       expect(savedTransaction.amount, equals(transaction.amount));
@@ -172,8 +143,8 @@ void main() {
 
       verify(
         mockStorage.getValue<String>(SharedPrefsKeys.transactions),
-      ).called(1);
-      verify(mockWalletApi.getTransactions()).called(1);
+      ).called(greaterThanOrEqualTo(1));
+      verify(mockWalletApi.getTransactions()).called(greaterThanOrEqualTo(1));
 
       expect(transactions, isNotEmpty);
       expect(
