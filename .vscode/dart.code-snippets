@@ -1,0 +1,300 @@
+// Workspace-specific code snippets
+{
+    "Concrete/abstract interface class": {
+        "prefix": "cac",
+        "body": [
+            "abstract interface class $className {}",
+            "",
+            "class ${className}Impl implements $className {}",
+        ],
+        "description": "Creates an abstract interface class and a class to implement it"
+    },
+    "Creates a Cubit class": {
+        "prefix": "cc",
+        "body": [
+            "import 'package:injectable/injectable.dart';",
+            "",
+            "@injectable",
+            "class ${name}Cubit extends CubitBase<dynamic> {",
+            "}"
+        ],
+        "description": "Creates a ViewModel class"
+    },
+    "Getter Property with Field": {
+        "prefix": "propgf",
+        "body": [
+            "$type _$prop;",
+            "$type get $prop => _$prop;",
+        ],
+        "description": "Creates a getter property with field"
+    },
+    "Creates a view using a stateless widget": {
+        "prefix": "vsl",
+        "body": [
+            "// coverage:ignore-file",
+            "@RoutePage()",
+            "class ${1}View extends StatelessWidget with ViewMixin<${1}Cubit> {",
+            " const ${1}View() : super(key: const Key(${1}ViewRoute.name));",
+            "",
+            "  @override",
+            "  Widget buildView(BuildContext context) {",
+            "    return Scaffold(",
+            "      appBar: AppBar(",
+            "        title: const Text('${1}'),",
+            "      ),",
+            "    );",
+            "  }",
+            "}"
+        ],
+        "description": "Creates a view using a stateless widget",
+    },
+    "Creates a view using a stateful widget": {
+        "prefix": "vsf",
+        "body": [
+            "// coverage:ignore-file",
+            "@RoutePage()",
+            "class ${1}View extends StatefulWidget {",
+            " const ${1}View() : super(key: const Key(${1}ViewRoute.name));",
+            "",
+            "  @override",
+            "  State<${1}View> createState() => _${1}ViewState();",
+            "}",
+            "",
+            "class _${1}ViewState extends StateBase <${1}View> with ViewMixin<${1}Cubit> {",
+            "  @override",
+            "  Widget buildView(BuildContext context) {",
+            "    return Scaffold(",
+            "      appBar: AppBar(",
+            "        title: const Text('${1}'),",
+            "      ),",
+            "    );",
+            "  }",
+            "}",
+            ""
+        ],
+        "description": "Creates a view using a stateful widget"
+    },
+
+    "Creates a dialog view using a stateless widget": {
+        "prefix": "dvsl",
+        "body": [
+            "// coverage:ignore-file",
+            "@Named(DialogNameKey.${1/(.*)/${1:/downcase}/})",
+            "@Injectable(as: Widget)",
+            "class ${1}View extends StatelessWidget with ViewMixin<${1}Cubit> {",
+            " const ${1}View() : super(key: const Key(DialogNameKey.${1/(.*)/${1:/downcase}/}));",
+            "",
+            "  @override",
+            "  Widget buildView(BuildContext context) {",
+            "    return Dialog(",
+            "     child: Container(",
+            "      height: 100,",
+            "      width: 100,",
+            "      color: Colors.grey,",
+            "    ),",
+            "   );",
+            "  }",
+            "}"
+        ],
+        "description": "Creates a dialog view using a stateless widget",
+    },
+    "Creates a dialog view using a stateful widget": {
+        "prefix": "dvsf",
+        "body": [
+            "// coverage:ignore-file",
+            "@Named(DialogNameKey.${1/(.*)/${1:/downcase}/})",
+            "@Injectable(as: Widget)",
+            "class ${1}View extends StatefulWidget {",
+            " const ${1}View() : super(key: const Key(DialogNameKey.${1/(.*)/${1:/downcase}/}));",
+            "",
+            "  @override",
+            "  State<${1}View> createState() => _${1}ViewState();",
+            "}",
+            "",
+            "class _${1}ViewState extends StateBase <${1}View> with ViewMixin<${1}Cubit> {",
+            "  @override",
+            "  Widget buildView(BuildContext context) {",
+            "    return Dialog(",
+            "     child: Container(",
+            "      height: 100,",
+            "      width: 100,",
+            "      color: Colors.grey,",
+            "    ),",
+            "   );",
+            "  }",
+            "}"
+        ],
+        "description": "Creates a dialog view using a stateful widget"
+    },
+    "Creates an injectable dependency": {
+        "prefix": "dep",
+        "body": [
+            "import 'package:injectable/injectable.dart';",
+            "",
+            "abstract interface class ${name} {}",
+            "",
+            "@LazySingleton(as: ${name})",
+            "class ${name}Impl implements ${name} {}"
+        ],
+        "description": "Creates an injectable dependency"
+    },
+    "Creates a Data Contract class": {
+        "prefix": "dataC",
+        "body": [
+            "part '${TM_FILENAME_BASE}.g.dart';",
+            "",
+            "@JsonSerializable()",
+            "class ${name}Contract extends DataContract {",
+            "  const ${name}Contract();",
+            "",
+            "  factory ${name}Contract.fromJson(Map<String, dynamic> json) => _$${name}ContractFromJson(json);",
+            "",
+            "  @override",
+            "  Map<String, dynamic> toJson() => _$${name}ContractToJson(this);",
+            "}"
+        ],
+        "description": "Creates a JSON class"
+    },
+    "Creates a JSON class": {
+        "prefix": "jsonC",
+        "body": [
+            "part '${TM_FILENAME_BASE}.g.dart';",
+            "",
+            "@immutable",
+            "@JsonSerializable()",
+            "class ${name} extends JsonSerializableObject {",
+            "  const ${name}();",
+            "",
+            "  factory ${name}.fromJson(Map<String, dynamic> json) => _$${name}FromJson(json);",
+            "",
+            "  @override",
+            "  Map<String, dynamic> toJson() => _$${name}ToJson(this);",
+            "}"
+        ],
+        "description": "Creates a JSON class"
+    },
+    "Create test group": {
+        "prefix": "gtest",
+        "body": [
+            "import 'package:flutter_test/flutter_test.dart';",
+            "",
+            "void main() {",
+            "  group(${UnitToTest}, () {",
+            "",
+            "\tsetUp(() {",
+            "\t  // Setup your mocks here",
+            "\t});",
+            "",
+            "\t${UnitToTest} createUnitToTest() {",
+            "\t  return ${UnitToTest}();",
+            "\t}",
+            "",
+            "\ttest('{methodToTest} should {expected} when {condition}', () {",
+            "\t  // Arrange",
+            "\t  final unit = createUnitToTest();",
+            "",
+            "\t  // Act",
+            "",
+            "\t  // Assert",
+            "\t});",
+            "  });",
+            "}"
+        ]
+    },
+    "Creates an retrofit API": {
+        "prefix": "api",
+        "body": [
+            "import 'package:injectable/injectable.dart';",
+            "",
+            "part '${TM_FILENAME_BASE}.g.dart';",
+            "",
+            "@LazySingleton(as: ${ApiName}Api)",
+            "@RestApi()",
+            "abstract interface class ${ApiName}ApiImpl implements ${ApiName}Api{",
+            "  @factoryMethod",
+            "  factory ${ApiName}ApiImpl(DioProvider dioProvider) => _${ApiName}ApiImpl(dioProvider.create<${ApiName}ApiImpl>());",
+            "}"
+        ],
+        "description": "Creates an retrofit API"
+    },
+    "Creates mapper between Entity and Contract": {
+        "prefix": "mapper",
+        "body": [
+            "import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';",
+            "import 'package:injectable/injectable.dart';",
+            "import '${TM_FILENAME_BASE}.auto_mappr.dart';",
+            "",
+            "@AutoMappr([",
+            "  MapType<${1}Entity, ${1}Contract>(),",
+            "  MapType<${1}Contract, ${1}Entity>(),",
+            "])",
+            "@injectable",
+            "class ${1}Mapper extends $${1}Mapper {",
+            "  const ${1}Mapper();",
+            "}",
+        ],
+        "description": "Creates mapper between Entity and Contract"
+    },
+    "Creates Freezed State": {
+        "prefix": "fs",
+        "body": [
+            "import 'package:freezed_annotation/freezed_annotation.dart';",
+            "",
+            "part '${TM_FILENAME_BASE}.freezed.dart';",
+            "",
+            "@freezed",
+            "class ${1}State with _$${1}State {",
+            "  const factory ${1}State.on({",
+            "  }) = _${1};",
+            "}",
+        ],
+        "description": "Creates Freezed State"
+    },
+    "Creates a repository class": {
+        "prefix": "repo",
+        "body": [
+            "import 'package:drift/drift.dart';",
+            "import 'package:injectable/injectable.dart';",
+            "",
+            "abstract interface class ${2}Repository implements Repository<${2}s, ${2}Object> {}",
+            "",
+            "@LazySingleton(as: ${2}Repository)",
+            "class ${2}RepositoryImpl extends BaseRepository<${1}, ${2}s, ${2}Object> implements ${2}Repository {",
+            "  ${2}RepositoryImpl(${1} db) : super(db);",
+            "}"
+        ],
+        "description": "Creates a repository class"
+    },
+    "Creates a data table class": {
+        "prefix": "dtbl",
+        "body": [
+            "import 'package:drift/drift.dart';",
+            "",
+            "@DataClassName('${1}Object')",
+            "class ${1}s extends DataTable {}"
+        ],
+        "description": "Creates a data object class"
+    },
+    "Override onInitialize method with optional parameters": {
+        "prefix": "onInit",
+        "body": [
+            "@override",
+            "Future<void> onInitialize([Object? parameter]) {",
+            "  // TODO: implement onInitialize",
+            "  throw UnimplementedError();",
+            "}"
+        ],
+        "description": "Override onInitialize method with optional parameters"
+    },
+    "Override onFirstRender method with optional parameter": {
+        "prefix": "onFiR",
+        "body": [
+            "@override",
+            "Future<void> onFirstRender([Object? parameter]) {",
+            "  // TODO: implement onFirstRender",
+            "  throw UnimplementedError();",
+            "}"
+        ],
+        "description": "Override onFirstRender method with optional parameter"
+    },
+}

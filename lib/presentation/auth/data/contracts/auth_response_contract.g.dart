@@ -1,0 +1,25 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'auth_response_contract.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+AuthResponseContract _$AuthResponseContractFromJson(
+  Map<String, dynamic> json,
+) => AuthResponseContract(
+  user: UserContract.fromJson(json['user'] as Map<String, dynamic>),
+  token: TokenContract.fromJson(json['token'] as Map<String, dynamic>),
+  message: json['message'] as String? ?? '',
+  success: json['success'] as bool? ?? true,
+);
+
+Map<String, dynamic> _$AuthResponseContractToJson(
+  AuthResponseContract instance,
+) => <String, dynamic>{
+  'user': instance.user,
+  'token': instance.token,
+  'message': instance.message,
+  'success': instance.success,
+};

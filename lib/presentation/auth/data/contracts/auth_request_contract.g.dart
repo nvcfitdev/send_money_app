@@ -1,0 +1,20 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'auth_request_contract.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+AuthRequestContract _$AuthRequestContractFromJson(Map<String, dynamic> json) =>
+    AuthRequestContract(
+      username: json['username'] as String,
+      password: json['password'] as String,
+    );
+
+Map<String, dynamic> _$AuthRequestContractToJson(
+  AuthRequestContract instance,
+) => <String, dynamic>{
+  'username': instance.username,
+  'password': instance.password,
+};
