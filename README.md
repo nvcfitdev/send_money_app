@@ -77,6 +77,8 @@ The project follows a comprehensive testing strategy:
 
 ## Project Sequence Diagram
 
+![Project Sequence Diagram](assets/sequence-diagram.png)
+
 ## Development Notes
 
 - Uses BLoC pattern for state management
