@@ -25,7 +25,6 @@ class _InitAppState extends State<InitApp> {
           return Directionality(
             textDirection: TextDirection.ltr,
             child: Scaffold(
-              backgroundColor: Colors.red,
               body: Center(
                 child: Text(
                   'Error: ${snapshot.error}',
@@ -43,7 +42,6 @@ class _InitAppState extends State<InitApp> {
         return const Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
-            backgroundColor: Colors.blue,
             body: Center(child: CircularProgressIndicator(color: Colors.white)),
           ),
         );

@@ -1,4 +1,4 @@
-# Maya Test App
+# Send Money Test App
 
 A Flutter application demonstrating wallet and money transfer functionality with authentication.
 
