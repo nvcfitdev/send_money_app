@@ -22,6 +22,14 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
+class AuthMockFailureToggled extends AuthState {
+  final bool enabled;
+  const AuthMockFailureToggled(this.enabled);
+
+  @override
+  List<Object?> get props => [enabled];
+}
+
 abstract class AuthState extends Equatable {
   const AuthState();
 

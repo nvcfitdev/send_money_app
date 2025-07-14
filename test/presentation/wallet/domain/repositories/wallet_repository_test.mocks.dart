@@ -113,23 +113,6 @@ class MockSharedPreferenceStorage extends _i1.Mock
           as _i5.Future<bool>);
 
   @override
-  _i5.Future<void> clearAllExcept(Set<String>? keys) =>
-      (super.noSuchMethod(
-            Invocation.method(#clearAllExcept, [keys]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<Iterable<String>> getKeysWithPrefix(String? prefix) =>
-      (super.noSuchMethod(
-            Invocation.method(#getKeysWithPrefix, [prefix]),
-            returnValue: _i5.Future<Iterable<String>>.value(<String>[]),
-          )
-          as _i5.Future<Iterable<String>>);
-
-  @override
   _i5.Future<T?> getValue<T>(String? key) =>
       (super.noSuchMethod(
             Invocation.method(#getValue, [key]),

@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _mockFailureEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
           if (state is AuthAuthenticated) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Routes.navigateToWallet(context, clearStack: true);
+              context.read<AuthCubit>().resetState(); // Reset auth state
             });
           } else if (state is AuthError) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -35,6 +37,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               );
             });
+          } else if (state is AuthMockFailureToggled) {
+            _mockFailureEnabled = state.enabled;
           }
           return Center(
             child: SingleChildScrollView(
@@ -104,6 +108,20 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   )
                                   : const Text('Login'),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                _mockFailureEnabled ? Colors.green : Colors.red,
+                          ),
+                          onPressed:
+                              () => context.read<AuthCubit>().mockErrorLogin(),
+                          child: Text(
+                            _mockFailureEnabled
+                                ? 'Disable Mock Error Login'
+                                : 'Enable Mock Error Login',
+                          ),
                         ),
                         const SizedBox(height: 16),
                       ],

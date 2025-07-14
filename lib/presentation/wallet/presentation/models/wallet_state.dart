@@ -28,6 +28,16 @@ class WalletLoaded extends WalletState {
 
 class WalletLoading extends WalletState {}
 
+class WalletLoggedOut extends WalletState {}
+
+class WalletMockFailureToggled extends WalletState {
+  final bool enabled;
+  const WalletMockFailureToggled(this.enabled);
+
+  @override
+  List<Object?> get props => [enabled];
+}
+
 abstract class WalletState extends Equatable {
   const WalletState();
 

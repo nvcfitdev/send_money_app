@@ -70,9 +70,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i579.SharedPreferenceStorage>(),
       ),
     );
-    gh.factory<_i905.WalletCubit>(
-      () => _i905.WalletCubit(gh<_i281.WalletRepository>()),
-    );
     gh.lazySingleton<_i423.SendMoneyRepository>(
       () => _i423.SendMoneyRepositoryImpl(
         gh<_i958.SendMoneyApi>(),
@@ -86,10 +83,23 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.lazySingleton<_i989.AuthRepository>(
-      () => _i989.AuthRepositoryImpl(gh<_i40.AuthApi>()),
+      () => _i989.AuthRepositoryImpl(
+        gh<_i40.AuthApi>(),
+        gh<_i579.SharedPreferenceStorage>(),
+      ),
     );
     gh.factory<_i173.AuthCubit>(
-      () => _i173.AuthCubit(gh<_i989.AuthRepository>()),
+      () => _i173.AuthCubit(
+        gh<_i989.AuthRepository>(),
+        gh<_i579.SharedPreferenceStorage>(),
+      ),
+    );
+    gh.factory<_i905.WalletCubit>(
+      () => _i905.WalletCubit(
+        gh<_i281.WalletRepository>(),
+        gh<_i989.AuthRepository>(),
+        gh<_i579.SharedPreferenceStorage>(),
+      ),
     );
     return this;
   }

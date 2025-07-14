@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:maya_test_app/presentation/app/routes.dart';
-import 'package:maya_test_app/presentation/auth/presentation/cubits/auth_cubit.dart';
 
 import '../cubits/wallet_cubit.dart';
 
-class WalletPage extends StatelessWidget {
+class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
+
+  @override
+  State<WalletPage> createState() => _WalletPageState();
+}
+
+class _WalletPageState extends State<WalletPage> {
+  bool _mockFailureEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +25,23 @@ class WalletPage extends StatelessWidget {
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
-              onPressed: () {
-                context.read<AuthCubit>().logout();
-                Routes.navigateToLogin(context, clearStack: true);
-              },
+              onPressed: () => context.read<WalletCubit>().onLogout(),
             ),
           ],
         ),
         body: BlocBuilder<WalletCubit, WalletState>(
           builder: (context, state) {
+            if (state is WalletMockFailureToggled) {
+              _mockFailureEnabled = state.enabled;
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.read<WalletCubit>().loadWalletData();
+              });
+            } else if (state is WalletLoggedOut) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Routes.navigateToLogin(context, clearStack: true);
+              });
+            }
+
             if (state is WalletLoading) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -166,12 +180,26 @@ class WalletPage extends StatelessWidget {
                         foregroundColor: Theme.of(context).colorScheme.onError,
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            _mockFailureEnabled ? Colors.green : Colors.red,
+                      ),
+                      onPressed:
+                          () => context.read<WalletCubit>().mockErrorLogout(),
+                      child: Text(
+                        _mockFailureEnabled
+                            ? 'Disable Mock Error Login'
+                            : 'Enable Mock Error Login',
+                      ),
+                    ),
                   ],
                 ),
               );
             }
 
-            return const Center(child: Text('Welcome to your wallet!'));
+            return const SizedBox.shrink();
           },
         ),
       ),

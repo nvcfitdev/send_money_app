@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:maya_test_app/core/local/shared_preference_storage.dart' as _i5;
 import 'package:maya_test_app/presentation/auth/data/api/auth_api.dart' as _i3;
 import 'package:maya_test_app/presentation/auth/domain/entities/auth.dart'
     as _i2;
@@ -55,4 +56,54 @@ class MockAuthApi extends _i1.Mock implements _i3.AuthApi {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+}
+
+/// A class which mocks [SharedPreferenceStorage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSharedPreferenceStorage extends _i1.Mock
+    implements _i5.SharedPreferenceStorage {
+  MockSharedPreferenceStorage() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<bool> clear(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#clear, [key]),
+            returnValue: _i4.Future<bool>.value(false),
+          )
+          as _i4.Future<bool>);
+
+  @override
+  _i4.Future<bool> clearAll() =>
+      (super.noSuchMethod(
+            Invocation.method(#clearAll, []),
+            returnValue: _i4.Future<bool>.value(false),
+          )
+          as _i4.Future<bool>);
+
+  @override
+  _i4.Future<T?> getValue<T>(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#getValue, [key]),
+            returnValue: _i4.Future<T?>.value(),
+          )
+          as _i4.Future<T?>);
+
+  @override
+  _i4.Future<Iterable<T>> getValues<T>(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#getValues, [key]),
+            returnValue: _i4.Future<Iterable<T>>.value(<T>[]),
+          )
+          as _i4.Future<Iterable<T>>);
+
+  @override
+  _i4.Future<bool> setValue(String? key, Object? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setValue, [key, value]),
+            returnValue: _i4.Future<bool>.value(false),
+          )
+          as _i4.Future<bool>);
 }

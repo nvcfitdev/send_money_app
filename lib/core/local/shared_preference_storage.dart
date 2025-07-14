@@ -9,10 +9,6 @@ abstract interface class SharedPreferenceStorage {
 
   Future<bool> clearAll();
 
-  Future<void> clearAllExcept(Set<String> keys);
-
-  Future<Iterable<String>> getKeysWithPrefix(String prefix);
-
   Future<T?> getValue<T>(String key);
 
   Future<Iterable<T>> getValues<T>(String key);
@@ -45,23 +41,6 @@ class SharedPreferenceStorageImpl implements SharedPreferenceStorage {
     final didClear = await (await prefs).clear();
 
     return didClear;
-  }
-
-  @override
-  Future<void> clearAllExcept(Set<String> keys) async {
-    final allKeys = (await prefs).getKeys();
-    final keysToRemove = allKeys.where((key) => !keys.contains(key));
-
-    for (final key in keysToRemove) {
-      await clear(key);
-    }
-  }
-
-  @override
-  Future<Iterable<String>> getKeysWithPrefix(String prefix) async {
-    final keys = (await prefs).getKeys();
-
-    return keys.where((key) => key.startsWith(prefix));
   }
 
   @override
